@@ -1,0 +1,33 @@
+name: Publish
+
+on:
+  workflow_dispatch: # Allow running on-demand
+  push:
+    tags:
+      - "*"
+
+jobs:
+  # forked from https://github.com/rochacbruno/python-project-template/blob/main/.github/workflows/release.yml
+  build-and-publish:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.6
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Build and publish package
+        env:
+          TWINE_USERNAME: __token__
+          TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+        run: |
+          python -m build . --outdir dist/
+          twine upload dist/*

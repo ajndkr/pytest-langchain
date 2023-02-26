@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  workflow_dispatch: # Allow running on-demand
+  push:
+    branches:
+      - main
+    paths:
+      - .github/workflows/ci.yaml
+      - src/**
+      - tests/**
+      - '!**.md'
+
+jobs:
+  build-and-test:
+    if: github.event.pull_request.draft == false
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Code Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.6
+          cache: pip
+          cache-dependency-path: requirements*.txt
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Unit Tests
+        run: |
+          pip install -c requirements-dev.txt --force-reinstall pytest pytest-cov
+          pytest --cov=src --cov-report=term-missing:skip-covered --cov-fail-under=90 -v
