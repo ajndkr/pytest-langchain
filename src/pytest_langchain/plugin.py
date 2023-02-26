@@ -1,5 +1,6 @@
 """Custom pytest plugin for pytest-langchain."""
 
+
 def pytest_addoption(parser):
     parser.addoption(
         "--langchain-config-dir",
