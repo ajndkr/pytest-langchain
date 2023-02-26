@@ -15,7 +15,7 @@ import pytest
 )
 @click.option("--openai-api-key", "openai_api_key", type=str, help="OpenAI API key.")
 def main(config_file: str, openai_api_key: str):
-    """Main entry point for pytest-langchain"""
+    """pytest-langchain CLI"""
     config_file = str(Path(config_file).absolute())
     config_dir = str(Path(config_file).parent)
 
