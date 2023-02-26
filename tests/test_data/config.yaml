@@ -1,0 +1,6 @@
+chain_file: llm_chain.yaml
+test_cases:
+- - "colorful socks"
+  - "\n\nSocktastic!"
+- - "toys"
+  - "\n\nTeddy's Toy Factory"
