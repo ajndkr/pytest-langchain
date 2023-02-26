@@ -1,6 +1,6 @@
 # 🦜️🔗✅ pytest-langchain
 
-Pytest-style test runner for langchain agents.
+Pytest-style test runner for langchain projects.
 
 <div align="center">
 
@@ -25,3 +25,27 @@ git clone https://github.com/ajndkr/pytest-langchain
 cd pytest-langchain
 pip install .
 ```
+
+## Usage
+
+-   Serialise your LLM chain into a YAML file.
+    Refer to [docs](https://langchain.readthedocs.io/en/latest/modules/chains/generic/serialization.html)
+    for more details.
+
+-   Create a new configuration YAML file to run `pytest-langchain` with the following structure:
+
+    ```yaml
+    chain_file: <path to chain YAML file>
+    test_cases:
+    - [<input-1>, <expected output-1>]
+    - [<input-2>, <expected output-2>]
+    - ...
+    ```
+
+-   Run `pytest-langchain`:
+
+    ```
+    pytest-langchain -c <path to config YAML file> --openai-api-key <OPENAI API key>
+    ```
+
+    For more options, run `pytest-langchain --help`.
