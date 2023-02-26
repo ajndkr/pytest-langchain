@@ -1,0 +1,16 @@
+# base
+-e file:.
+
+# ci/cd
+pre-commit
+black
+flake8
+isort
+mypy
+pytest
+pytest-cov
+bumpversion
+build
+setuptools
+wheel
+twine
